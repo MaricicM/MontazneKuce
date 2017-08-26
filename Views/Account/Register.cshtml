@@ -1,0 +1,138 @@
+﻿@model MontazneKuce.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<form id="form1" action="/Account/Register" class="form-horizontal" method="post" role="form">
+    @Html.AntiForgeryToken();
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="Ime">Ime</label>
+        <div class="col-md-10">
+            <input class="form-control" data-val="true" data-val-length-max="30" data-val-length-min="2" data-val-length="Ime mora sadrzati od 2 do 30 slova" data-val-required="Morate uneti ime" id="Ime" name="Ime" type="text" value="@Model.Ime" />
+            <span class="field-validation-valid text-danger" data-valmsg-for="Ime" data-valmsg-replace="true"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="Prezime">Prezime</label>
+        <div class="col-md-10">
+            <input class="form-control" data-val="true" data-val-length-max="30" data-val-length-min="2" data-val-length="Prezime mora sadrzati od 2 do 30 slova" data-val-required="Morate uneti prezime" id="Prezime" name="Prezime" type="text" value="@Model.Prezime" />
+            <span class="field-validation-valid text-danger" data-valmsg-for="Prezime" data-valmsg-replace="true"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="Email">Email</label>
+        <div class="col-md-10">
+            <input class="form-control" data-val="true" data-val-email="Nije uneta validna email adresa" data-val-required="Morate uneti email" id="Email" name="Email" type="text" onkeyup="PromenaEmail()" onblur="PromenaEmail()" value="@Model.Email" />
+            <span id="spErrEmail" class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true">@ViewBag.GreskaEmail</span>
+         </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="KorisnickoIme">Korisnicko Ime</label>
+        <div class="col-md-10">
+            <input class="form-control" onkeyup="PromenaIme()" onblur="PromenaIme()" data-val="true" data-val-required="Morate uneti korisnicko ime" id="KorisnickoIme" name="KorisnickoIme" type="text" value="@Model.KorisnickoIme" readonly />
+            <span id="spErrKorIme" class="field-validation-valid text-danger" data-valmsg-for="KorisnickoIme" data-valmsg-replace="true">@ViewBag.GreskaIme</span>
+         </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="CheckBox1">Zelim drugacije korisnicko Ime</label>
+        <div class="col-md-10">
+            <input id="Checkbox1" type="checkbox" onchange="CekBoks()" name="DrugacijeKorisnickoIme" value="false"/>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="Lozinka">Lozinka</label>
+        <div class="col-md-10">
+            <input class="form-control" data-val="true" data-val-length="Lozinka mora sadrzati izmedju 3 i 100 karaktera" data-val-length-max="100" data-val-length-min="3" data-val-required="Morate uneti lozinku" id="Lozinka" name="Lozinka" type="password" />
+            <span class="field-validation-valid text-danger" data-valmsg-for="Lozinka" data-valmsg-replace="true"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="PotvrdaLozinke">Potvrdi lozinku</label>
+        <div class="col-md-10">
+            <input class="form-control" onkeyup="Provera()" data-val="true" data-val-equalto="Potvrda se ne poklapa sa lozinkom." data-val-equalto-other="*.Password" id="PotvrdaLozinke" name="PotvrdaLozinke" type="password" />
+            <span id="spErrPotvrda" class="field-validation-valid text-danger" data-valmsg-replace="true"></span>
+         </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" class="btn btn-default" value="Registruj se" onclick="Registracija()" />
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(function () {
+            if ('@Model.DrugacijeKorisnickoIme') {
+                $("#CheckBox1").attr("checked", "true");
+            } else {
+                spErrKorIme.innerHTML = "";
+            }
+        });
+
+        function PromenaEmail() {
+            if (!Checkbox1.checked) {
+                $("#KorisnickoIme").val($("#Email").val());
+            }
+            if ('@ViewBag.GreskaEmail' != "") {
+                if ($("#Email").val() == '@ViewBag.Email') {
+                    spErrEmail.innerHTML = '@ViewBag.GreskaEmail';
+                } else {
+                    spErrEmail.innerHTML = "";
+                }
+            }
+        }
+
+        function PromenaIme() {
+            if ('@ViewBag.GreskaIme' != "") {
+                if ($("#KorisnickoIme").val() == '@ViewBag.KorisnickoIme') {
+                    spErrKorIme.innerHTML = '@ViewBag.GreskaIme';
+                } else {
+                    spErrKorIme.innerHTML = "";
+                }
+            }
+        }
+
+        function CekBoks() {
+            if (Checkbox1.checked) {
+                $("#KorisnickoIme").removeAttr("readonly");
+                $("#KorisnickoIme").val("");
+                $("#CheckBox1").val("true");
+            } else {
+                $("#KorisnickoIme").attr("readonly", "true");
+                $("#KorisnickoIme").val($("#Email").val());
+                $("#CheckBox1").val("false");
+            }
+        }
+
+        function Registracija() {
+            if ($("#Lozinka").val() != $("#PotvrdaLozinke").val()) {
+                spErrPotvrda.innerHTML = "Potvrda se ne poklapa sa lozinkom.";
+                return;
+            }
+            $("#form1").submit();
+        }
+
+        function Provera() {
+            if (spErrPotvrda.innerHTML != "") {
+                if ($("#Lozinka").val() == $("#PotvrdaLozinke").val()) {
+                    spErrPotvrda.innerHTML = "";
+                }
+            }
+        }
+    </script>
+}

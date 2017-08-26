@@ -1,0 +1,41 @@
+﻿@model MontazneKuce.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "DaLiSteSigurni";
+}
+
+<h3>Da li ste sigurni da zelite da izbacite korisnika?</h3>
+<div class="row">
+    <div class="form-group">
+        <label for="tKorisnickoIme" class="control-label">Korisnicko ime</label>
+        <input id="tKorisnickoIme" type="text" class="form-control" value="@Model.UserName" readonly/>
+    </div>
+
+    <div class="form-group">
+        <label for="tIme" class="control-label">Ime</label>
+        <input id="tIme" type="text" class="form-control" value="@Model.Ime" readonly />
+    </div>
+
+    <div class="form-group">
+        <label for="tPrezime" class="control-label">Prezime</label>
+        <input id="tPrezime" type="text" class="form-control" value="@Model.Prezime" readonly />
+    </div>
+
+    <div class="form-group">
+        <label for="tEmail" class="control-label">Email</label>
+        <input id="tEmail" type="text" class="form-control" value="@Model.Email" readonly />
+    </div>
+
+    <br />
+
+    <div class="row">
+        <form action="/Administracija/IzbaciKorisnika/" method="post">
+            <input type="text" name="id" value="@Model.Id" hidden/>
+            <input type="submit" value="Izbaci" class="button" />
+        </form>
+    </div>
+    <br />
+    <div class="row">             
+        <a class="button" href="/Administracija/Index/1">Povratak</a>
+    </div>
+</div>

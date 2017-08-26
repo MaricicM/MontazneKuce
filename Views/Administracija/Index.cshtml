@@ -1,0 +1,25 @@
+﻿@model IEnumerable<MontazneKuce.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Administracija";
+}
+<br />
+<div class="row">
+    <div class="col-md-2">
+        <a class="button" data-ajax="true" data-ajax-update="#div1" href="/Administracija/_VratiKorisnike">Korisnici</a>
+    </div>
+    <div class="col-md-2">
+        <a class="button" data-ajax="true" data-ajax-update="#div1" href="/Administracija/_VratiRole">Role</a>
+    </div>
+</div> 
+<br />
+
+<div id="div1" class="row">
+    @if (Model != null)
+    {
+        @Html.Partial("_VratiKorisnike");
+    }
+</div>
+<br />
+<p>@ViewBag.Poruka</p>
+

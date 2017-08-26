@@ -1,0 +1,24 @@
+﻿@model IEnumerable<MontazneKuce.Models.ApplicationUser>
+
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Korisnicko ime</th>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Email</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.UserName</td>
+            <td>@item.Ime</td>
+            <td>@item.Prezime</td>
+            <td>@item.Email</td>
+            <td>
+                <a href="@($"/Administracija/DaLiSteSigurni/{item.Id}")">Izbaci</a>
+            </td>
+        </tr>
+    }
+</table>
