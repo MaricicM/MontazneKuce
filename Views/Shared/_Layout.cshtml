@@ -28,7 +28,7 @@
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Blog", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Blog", "Index", "Blog")</li>
                         if (User.IsInRole("admin"))
                         {
                             <li>@Html.ActionLink("Administracija", "Index", "Administracija")</li>

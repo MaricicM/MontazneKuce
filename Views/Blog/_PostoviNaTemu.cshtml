@@ -1,0 +1,20 @@
+﻿@model IEnumerable<MontazneKuce.Models.Post>
+
+<h2>@ViewBag.NazivTeme</h2>
+
+<br />
+<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#div1" href="@($"/Blog/_NoviPost/{ViewBag.TemaId}")">Novi post</a>
+<br />
+@foreach (var item in Model)
+{    
+    <div class="row" style="border: 1px solid black">
+        @Html.Action("_ImeISlika","Blog", new {id = item.KorisnikId, postId = item.PostId})
+        <div class="col-md-10">
+            <div class="row top text-center"  style="font-size:20px">@item.Naziv</div>
+            <br />
+            <textarea rows="10" style="min-width:100%" class="text-primary" readonly>@item.Sadrzaj</textarea>
+        </div>
+    </div>
+    <br />
+}
+

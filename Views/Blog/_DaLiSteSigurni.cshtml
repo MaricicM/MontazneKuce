@@ -1,0 +1,48 @@
+﻿@model MontazneKuce.Models.Tema
+
+
+<h3>Da li ste sigurni na zelite da uklonite temu sa bloga?</h3>
+<br />
+@Html.AntiForgeryToken()
+<div class="row">
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Naziv">Naziv teme: </label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" style="min-width:60%; background:white" id="Naziv" value="@Model.Naziv" readonly />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label class="control-label col-md-2" for="BrPostova">Broj postova: </label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" style="background:white" id="BrPostova" value="@ViewBag.BrojPostova" readonly />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label class="control-label col-md-2" for="DatumOtvaranja">Datum otvaranja: </label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" style="background:white" id="DatumOtvaranja" value="@Model.DatumOtvaranja" readonly />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label class="control-label col-md-2" for="PoslednjiPost">Datum poslednjeg posta: </label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" style="background:white" id="PoslednjiPost" value="@Model.DatumOtvaranja" readonly />
+        </div>
+    </div>
+</div>
+<br />
+<form action="/Blog/UkloniTemu" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <input type="text" value="@Model.TemaId" name="id" hidden />
+        <div class="col-md-offset-2 col-md-5">
+            <input type="submit" value="Ukloni temu" class="btn btn-default">
+        </div>
+        <div class="col-md-5">
+            <a class="btn btn-default" href="/Blog/Index">Povratak</a>
+        </div>
+    </div>
+</form>

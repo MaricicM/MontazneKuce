@@ -1,0 +1,98 @@
+﻿@model IEnumerable<MontazneKuce.Models.Tema>
+
+@{
+    ViewBag.Title = "Teme Bloga";
+}
+
+<h1 class="text-center text-info">Blog</h1>
+<hr />
+@if (ViewBag.Greska != null)
+{
+    <h4>Greska: @ViewBag.Greska</h4>
+}
+<div class="row">
+
+    <div class="col-md-10">
+        <a class="button" href="/Blog/Index">Teme</a>
+    </div>
+
+    @if (User.IsInRole("admin") || User.IsInRole("menadzer"))
+    {
+        <div class="col-md-2">
+            <a class="button" href="/Blog/NovaTema">Nova tema</a>
+        </div>
+    }
+    
+</div>
+<br />
+<div class="row" id="div1">
+    <h3 class="text-left">Teme</h3>
+    <br />
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>
+                Naziv
+            </th>
+            <th>
+                Broj postova
+            </th>
+            <th>
+                Tema Otvorena
+            </th>
+            <th>
+                Poslednji Post
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#div1" href="@($"/Blog/_PostoviNaTemu/{item.TemaId}")">@item.Naziv</a>
+                </td>
+                <td>
+                    @item.Postovi.Count()
+                </td>
+                <td>
+                    @item.DatumOtvaranja.ToShortDateString() | @item.DatumOtvaranja.ToShortTimeString()
+                </td>
+                <td>
+                    @if (item.DatumPoslednjegPosta < item.DatumOtvaranja)
+                    {
+                        <label>/</label>
+                    }
+                    else
+                    {
+                        @item.DatumPoslednjegPosta.ToShortDateString() <label> | </label> @item.DatumPoslednjegPosta.ToShortTimeString()
+                    }                    
+                </td>
+                <td>
+                    @if (User.IsInRole("admin") || User.IsInRole("menadzer"))
+                    {
+                        <a data-ajax="true" data-ajax-update="#div1" data-ajax-mode="replace" href="@($"/Blog/_DaLiSteSigurni/{item.TemaId}?brojPostova={item.Postovi.Count()}")">Ukloni temu</a>
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<br />
+
+
+
+@section scripts{
+    <script>
+        function Potvrda(id) {
+            var potvrda = confirm("Da li ste sigurni?");
+            if (potvrda) {
+                var rezultat = $.ajax({ type: "GET", url: "/Blog/_UkloniPost/", data: { id: id }, dataType: "html" });
+                rezultat.done(function (html) {
+                    div1.innerHTML = html;
+                });
+            }
+        }
+    </script>
+}

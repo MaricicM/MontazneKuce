@@ -1,0 +1,45 @@
+﻿@model MontazneKuce.Models.Post
+
+
+<h3 class="text-left">Novi Post</h3>
+<br />
+<div class="row">
+    @using (Ajax.BeginForm("_NoviPost", new AjaxOptions { UpdateTargetId = "div1" }))
+    {
+        @Html.ValidationSummary()
+        @Html.AntiForgeryToken()
+
+        <div class="form-group" hidden>
+            <input name="KorisnikId" type="text" class="form-control" value="@Model.KorisnikId">
+        </div>
+        <div class="form-group" hidden>
+            <input name="TemaId" type="text" class="form-control" value="@Model.TemaId">
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Naziv">Naslov</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" data-val="true" data-val-length="Naslov ne sme sadrzati preko 60 karaktera." data-val-length-max="60" data-val-required="Unesite naslov." id="Naziv" name="Naziv" type="text" value="@Model.Naziv">
+                <span class="field-validation-valid text-danger" data-valmsg-for="Naziv" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Sadrzaj">Sadrzaj</label>
+            <div class="col-md-10">
+                <textarea rows="6" class="form-control" data-val="true" data-val-required="Unesite sadrzaj." id="Sadrzaj" name="Sadrzaj">@Model.Sadrzaj</textarea>
+                <span class="field-validation-valid text-danger" data-valmsg-for="Sadrzaj" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="POSTavi" class="btn btn-default">
+            </div>
+        </div>
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

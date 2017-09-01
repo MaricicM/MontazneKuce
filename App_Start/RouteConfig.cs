@@ -18,6 +18,12 @@ namespace MontazneKuce
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "NoviPost",
+                url: "Blog/NoviPost/korId/temId",
+                defaults: new { controller = "Blog", action = "NoviPost", korId = "", temID = "" }
+                );
         }
     }
 }

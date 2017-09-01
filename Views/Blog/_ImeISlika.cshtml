@@ -1,0 +1,28 @@
+﻿@model MontazneKuce.Models.ApplicationUser
+
+    <div class="col-md-2 text-center" style="border-right:1px solid black">
+        <div class="row" style="border-bottom:1px solid black">
+            <label class="text-info" style="font-size:18px">@Model.UserName</label>
+        </div>
+        <div class="row">
+            <img src="~/bb.jpg" class="img-thumbnail" style="height:200px" />
+        </div>
+        @if (User.Identity.Name == Model.UserName)
+        {
+            <div class="row">
+                <ul class="list-inline">
+                    <li><a data-ajax="true" data-ajax-update="#div1" data-ajax-mode="replace" href="@($"/Blog/_IzmeniPost/{ViewBag.PostId}")" class="button1">Izmeni</a></li>
+                    <li><a href="javascript:Potvrda(@ViewBag.PostId);" class="button1">Ukloni</a></li>
+                </ul>                
+            </div>
+        }
+        else if (User.IsInRole("admin"))
+        {
+            <div class="row">
+                <ul class="list-inline">
+                    <li><a href="" class="button1">Opomeni</a></li>
+                    <li><a href="" class="button1">Ukloni</a></li>
+                </ul>
+            </div>
+        }
+    </div>

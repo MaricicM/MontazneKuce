@@ -88,6 +88,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -199,6 +201,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministracijaController.cs" />
+    <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -207,15 +210,20 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MontazneKuceContext.cs" />
+    <Compile Include="Models\Post.cs" />
     <Compile Include="Models\RolaView.cs" />
+    <Compile Include="Models\Tema.cs" />
+    <Compile Include="Models\Uloga.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-MontazneKuce-20170813014527.mdf" />
-    <Content Include="App_Data\aspnet-MontazneKuce-20170813014527_log.ldf">
-      <DependentUpon>aspnet-MontazneKuce-20170813014527.mdf</DependentUpon>
+    <Content Include="App_Data\MontazneKuceDB.mdf" />
+    <Content Include="App_Data\MontazneKuceDB_log.ldf">
+      <DependentUpon>MontazneKuceDB.mdf</DependentUpon>
     </Content>
+    <Content Include="bb.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -299,6 +307,13 @@
     <Content Include="Views\Administracija\_VratiKorisnike.cshtml" />
     <Content Include="Views\Administracija\DaLiSteSigurni.cshtml" />
     <Content Include="Views\Administracija\_VratiRole.cshtml" />
+    <Content Include="Views\Blog\Index.cshtml" />
+    <Content Include="Views\Blog\NovaTema.cshtml" />
+    <Content Include="Views\Blog\_PostoviNaTemu.cshtml" />
+    <Content Include="Views\Blog\_NoviPost.cshtml" />
+    <Content Include="Views\Blog\_ImeISlika.cshtml" />
+    <Content Include="Views\Blog\_DaLiSteSigurni.cshtml" />
+    <Content Include="Views\Blog\_IzmeniPost.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

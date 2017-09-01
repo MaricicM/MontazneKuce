@@ -57,6 +57,7 @@ namespace MontazneKuce.Controllers
             return View(kor);
         }
 
+        [ValidateAntiForgeryToken]
         public ActionResult IzbaciKorisnika(string id)
         {
             ViewBag.Poruka = "";
